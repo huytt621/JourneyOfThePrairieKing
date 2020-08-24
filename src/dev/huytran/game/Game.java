@@ -1,6 +1,7 @@
 package dev.huytran.game;
 
 import dev.huytran.game.display.Display;
+import dev.huytran.game.gfx.Assets;
 import dev.huytran.game.gfx.ImageLoader;
 import dev.huytran.game.gfx.SpriteSheet;
 
@@ -19,7 +20,6 @@ public class Game implements Runnable {
 
     private BufferStrategy bs;
     private Graphics g;
-    private SpriteSheet sheet;
 
     public Game(String title, int width, int height) {
         this.title = title;
@@ -29,7 +29,7 @@ public class Game implements Runnable {
 
     private void init() {
         display = new Display(title, width, height);
-        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
+        Assets.init();
     }
 
     private void tick() {
@@ -44,6 +44,7 @@ public class Game implements Runnable {
         }
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, width, height);
+        g.drawImage(Assets.player, 10, 10, null);
         bs.show();
         g.dispose();
     }
