@@ -44,7 +44,7 @@ public class Game implements Runnable {
         }
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, width, height);
-        g.drawImage(Assets.player, 10, 10, null);
+        g.drawImage(Assets.player, 0, 0, null);
         bs.show();
         g.dispose();
     }
@@ -52,13 +52,32 @@ public class Game implements Runnable {
     @Override
     public void run() {
         init();
+
+        int fps = 60;
+        double timePerTick = 1e9 / fps;
+        double delta = 0;
+        long now;
+        long lastTime = System.nanoTime();
+        long timer = 0;
+        int ticks = 0;
+
         while (running) {
-            tick();
-            render();
-            try {
-                TimeUnit.MILLISECONDS.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            now = System.nanoTime();
+            delta += (now - lastTime) / timePerTick;
+            timer += now - lastTime;
+            lastTime = now;
+
+            if (delta >= 1) {
+                tick();
+                render();
+                ticks++;
+                delta--;
+            }
+
+            if (timer >= 1e9) {
+                System.out.println("Ticks and Frames: " + ticks);
+                ticks = 0;
+                timer = 0;
             }
         }
         stop();
