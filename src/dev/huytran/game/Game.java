@@ -1,9 +1,12 @@
 package dev.huytran.game;
 
 import dev.huytran.game.display.Display;
+import dev.huytran.game.gfx.ImageLoader;
+import dev.huytran.game.gfx.SpriteSheet;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.concurrent.TimeUnit;
 
 public class Game implements Runnable {
 
@@ -16,6 +19,7 @@ public class Game implements Runnable {
 
     private BufferStrategy bs;
     private Graphics g;
+    private SpriteSheet sheet;
 
     public Game(String title, int width, int height) {
         this.title = title;
@@ -25,6 +29,7 @@ public class Game implements Runnable {
 
     private void init() {
         display = new Display(title, width, height);
+        sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
     }
 
     private void tick() {
@@ -38,6 +43,7 @@ public class Game implements Runnable {
             return;
         }
         g = bs.getDrawGraphics();
+        g.clearRect(0, 0, width, height);
         bs.show();
         g.dispose();
     }
@@ -48,6 +54,11 @@ public class Game implements Runnable {
         while (running) {
             tick();
             render();
+            try {
+                TimeUnit.MILLISECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         stop();
     }
