@@ -4,10 +4,12 @@ import dev.huytran.game.display.Display;
 import dev.huytran.game.gfx.Assets;
 import dev.huytran.game.gfx.ImageLoader;
 import dev.huytran.game.gfx.SpriteSheet;
+import dev.huytran.game.states.GameState;
+import dev.huytran.game.states.MenuState;
+import dev.huytran.game.states.State;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.concurrent.TimeUnit;
 
 public class Game implements Runnable {
 
@@ -21,6 +23,8 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
 
+    private State gameState;
+
     public Game(String title, int width, int height) {
         this.title = title;
         this.width = width;
@@ -30,10 +34,15 @@ public class Game implements Runnable {
     private void init() {
         display = new Display(title, width, height);
         Assets.init();
+
+        gameState = new MenuState();
+        StateManager.setState(gameState);
     }
 
     private void tick() {
-
+        if (StateManager.getState() != null) {
+            StateManager.getState().tick();
+        }
     }
 
     private void render() {
@@ -44,7 +53,9 @@ public class Game implements Runnable {
         }
         g = bs.getDrawGraphics();
         g.clearRect(0, 0, width, height);
-        g.drawImage(Assets.player, 0, 0, null);
+        if (StateManager.getState() != null) {
+            StateManager.getState().render(g);
+        }
         bs.show();
         g.dispose();
     }
