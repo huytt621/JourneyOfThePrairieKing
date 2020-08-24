@@ -2,8 +2,6 @@ package dev.huytran.game;
 
 import dev.huytran.game.display.Display;
 import dev.huytran.game.gfx.Assets;
-import dev.huytran.game.gfx.ImageLoader;
-import dev.huytran.game.gfx.SpriteSheet;
 import dev.huytran.game.states.GameState;
 import dev.huytran.game.states.MenuState;
 import dev.huytran.game.states.State;
@@ -23,6 +21,7 @@ public class Game implements Runnable {
     private BufferStrategy bs;
     private Graphics g;
 
+    private State menuState;
     private State gameState;
 
     public Game(String title, int width, int height) {
@@ -35,8 +34,9 @@ public class Game implements Runnable {
         display = new Display(title, width, height);
         Assets.init();
 
-        gameState = new MenuState();
-        StateManager.setState(gameState);
+        menuState = new MenuState();
+        gameState = new GameState();
+        StateManager.setState(menuState);
     }
 
     private void tick() {
