@@ -1,22 +1,25 @@
 package dev.huytran.game.states;
 
+import dev.huytran.game.entities.creatures.Player;
 import dev.huytran.game.gfx.Assets;
 
 import java.awt.*;
 
 public class GameState extends State {
 
-    public GameState() {
+    private Player player;
 
+    public GameState() {
+        player = new Player(512, 512);
     }
 
     @Override
     public void tick() {
-
+        player.tick();
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, 0, 0, null);
+        player.render(g);
     }
 }
