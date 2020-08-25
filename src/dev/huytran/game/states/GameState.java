@@ -3,6 +3,7 @@ package dev.huytran.game.states;
 import dev.huytran.game.Game;
 import dev.huytran.game.entities.creatures.Player;
 import dev.huytran.game.gfx.Assets;
+import dev.huytran.game.tiles.Tile;
 
 import java.awt.*;
 
@@ -23,5 +24,6 @@ public class GameState extends State {
     @Override
     public void render(Graphics g) {
         player.render(g);
+        Tile.tiles[0].render(g, 0, 0);
     }
 }
