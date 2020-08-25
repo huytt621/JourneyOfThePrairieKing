@@ -2,6 +2,7 @@ package dev.huytran.game;
 
 import dev.huytran.game.display.Display;
 import dev.huytran.game.gfx.Assets;
+import dev.huytran.game.input.KeyManager;
 import dev.huytran.game.states.GameState;
 import dev.huytran.game.states.MenuState;
 import dev.huytran.game.states.State;
@@ -24,14 +25,18 @@ public class Game implements Runnable {
     private State menuState;
     private State gameState;
 
+    private KeyManager keyManager;
+
     public Game(String title, int width, int height) {
         this.title = title;
         this.width = width;
         this.height = height;
+        keyManager = new KeyManager();
     }
 
     private void init() {
         display = new Display(title, width, height);
+        display.getFrame().addKeyListener(keyManager);
         Assets.init();
 
         menuState = new MenuState(this);
@@ -40,6 +45,8 @@ public class Game implements Runnable {
     }
 
     private void tick() {
+        keyManager.tick();
+
         if (StateManager.getState() != null) {
             StateManager.getState().tick();
         }
@@ -92,6 +99,10 @@ public class Game implements Runnable {
             }
         }
         stop();
+    }
+
+    public KeyManager getKeyManager() {
+        return keyManager;
     }
 
     public synchronized void start() {

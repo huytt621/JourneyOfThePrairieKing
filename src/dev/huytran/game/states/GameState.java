@@ -12,7 +12,7 @@ public class GameState extends State {
 
     public GameState(Game game) {
         super(game);
-        player = new Player(512, 512);
+        player = new Player(game, 512, 512);
     }
 
     @Override
