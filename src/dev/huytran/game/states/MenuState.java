@@ -1,13 +1,14 @@
 package dev.huytran.game.states;
 
+import dev.huytran.game.Game;
 import dev.huytran.game.gfx.Assets;
 
 import java.awt.*;
 
 public class MenuState extends State {
 
-    public MenuState() {
-
+    public MenuState(Game game) {
+        super(game);
     }
 
     @Override
