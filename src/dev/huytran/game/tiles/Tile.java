@@ -11,6 +11,7 @@ public class Tile {
     public static Tile darkRedStones2 = new DarkRedStones2(2);
     public static Tile lightRedStones = new LightRedStones(3);
     public static Tile cactusTile = new CactusTile(4);
+    public static Tile dirtAndGrassTile = new DirtAndGrassTile(5);
 
     public static final int TILE_WIDTH = 64;
     public static final int TILE_HEIGHT = 64;
