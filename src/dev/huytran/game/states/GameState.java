@@ -3,7 +3,6 @@ package dev.huytran.game.states;
 import dev.huytran.game.Game;
 import dev.huytran.game.entities.creatures.Player;
 import dev.huytran.game.levels.Level;
-import dev.huytran.game.tiles.Tile;
 
 import java.awt.*;
 
@@ -14,7 +13,7 @@ public class GameState extends State {
 
     public GameState(Game game) {
         super(game);
-        level = new Level("res/levels/level1.txt");
+        level = new Level(game, "res/levels/level1.txt");
         player = new Player(game, 512, 512);
     }
 

@@ -7,12 +7,10 @@ import java.awt.*;
 
 public class Player extends Creature {
 
-    private Game game;
     private float speed = 3;
 
     public Player(Game game, float x, float y) {
-        super(x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
-        this.game = game;
+        super(game, x, y, DEFAULT_CREATURE_WIDTH, DEFAULT_CREATURE_HEIGHT);
     }
 
     private void getInput() {
